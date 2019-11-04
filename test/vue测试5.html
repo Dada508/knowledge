@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue5</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <p v-if="isCreated">我是1111</p>
+        <p v-else>我是2222</p>
+        <template v-if="isCreated">
+            <div>Hello</div>
+            <div>Hello</div>
+            <div>Hello</div>
+            <div>Hello</div>
+        </template>
+        <p v-show ='isCreated'>我是动态的隐藏和显示</p>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#box",
+        data: {
+            name: "xiaoming",
+            isCreated: true
+        },
+    })
+</script>
+
+</html>

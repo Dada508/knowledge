@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数防抖和函数节流</title>
+</head>
+
+<body>
+    <div id="div" style="background-color: coral; width: 200px; height: 200px;">
+    </div>
+</body>
+<script>
+    /*
+     一、函数防抖
+     1.什么是函数防抖?
+
+       答:在事件被触发 n 秒后再执行回调,如果事件在 n 秒内又被触发，则重新计时。
+
+       应用场景 : 如 mouseover scoll 方法执行时，触发的函数;
+
+       生活实例 : 比如闭合式电梯，如果人进去了，则等待10s会自动关门。如果在这10s 内又进来一个人，则重新计时10s 再关门
+
+       // 函数防抖代码实现 -->
+        const div = document.getElementById("div");
+        let sometimes = null;
+              div.onmousemove = function () {
+                  if (sometimes) {
+                      clearTimeout(sometimes);
+                  }
+                  sometimes = setTimeout(() => {
+                      console.log("Hello World");
+                }, 1500);
+            }
+    */
+    /*
+     二、函数节流
+     1.什么是函数节流?
+
+        答:规定一个单位时间,只能有一次触发事件的回调函数执行，如果在 同一个单位时间内
+           某事件被多次触发，只有一次才能生效。
+
+        应用场景: 给一个按钮绑定表单提交的post事件,但是有时候网络延迟，用户可能会重复输入，多次点击
+                 的请求会造成不必要的浪费。
+
+        生活中实例: 人的眼睛观察图片，1s 内 连续播放 24张以上的图片，人的视觉就会形成一个连贯的动画。
+                   所以电影基本上都是以 24张/s 的速度连续播放的,为什么不多用一些那?因为多用一些会浪费。
+
+        // 函数节流代码实现 -->
+        const div = document.getElementById("div");
+            // 2s 内只能触发一次 onmousemove 事件;
+        let isTrue = null;
+        div.onmousemove = function () {
+            if (!isTrue) {
+                setTimeout(() => {
+                    console.log("div 的事件被触发了");
+                        isTrue = null;
+                    }, 2000);
+                }
+            isTrue = true;
+        }
+
+    */
+
+
+</script>
+
+</html>

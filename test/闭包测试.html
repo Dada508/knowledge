@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>闭包</title>
+</head>
+
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</body>
+<script>
+    // 当内部函数被返回到外部并保存时，一定会产生闭包，闭包会产生原来的作用域链不释放，过度的闭包可能会导致内存泄漏，或加载过慢
+    // return数组
+    // function test(){
+    //     var n =100;
+    //     function add(){
+    //         n++;
+    //         console.log(n);
+    //     }
+    //     function reduce(){
+    //         n--;
+    //         console.log(n);
+    //     }
+    //     return [add,reduce];
+    // }
+    // var arr =test();
+    // arr[0]();
+    // arr[0]();
+    // arr[0]();
+    // arr[0]();
+    // arr[1]();
+    // arr[1]();
+    // arr[1]();
+
+    // function breadMgr(num){
+    //     var breadNum =arguments[0] || 10;
+    //     function supply(){
+    //         breadNum +=10;
+    //         console.log(breadNum);
+    //     }
+    //     function sale(){
+    //         breadNum --;
+    //         console.log(breadNum);
+    //     }
+    //     return [supply,sale];
+    // }
+    // var breadMgr =breadMgr(50);
+    // breadMgr[0]();
+    // breadMgr[1]();
+    // breadMgr[1]();
+    // breadMgr[1]();
+
+    // return对象
+    // function sunSched(){
+    //     var sunSched ='';
+    //     var operation ={
+    //         setSched:function(thing){
+    //             sunSched =thing;
+    //         },
+    //         showSched:function(){
+    //             console.log("my schedule on sunday is " + sunSched);
+    //         }
+    //     }
+    //     return operation;
+    // }
+    // var sunSched =sunSched();
+    // sunSched.setSched('studying');
+    // sunSched.setSched('walking');
+    // sunSched.showSched();
+
+    // 打印出来每次的值都是10，因为i循环的时候，只是保存了下来，函数并没有走，直到return了之后，才走，这个时候i已经变成10了 所以，所有的值的是10
+    // function test(){
+    //     var arr = [];
+    //     for(var i = 0;i <10; i++){
+    //         // arr[i]=function(){document.write(i+"")}是赋值语句；所以document.write(i+"")是没执行的；因此for循环中的i和数组中function的i不是一一对应实时的
+    //         arr[i] =function(){
+    //             document.write(i + '');
+    //         }
+    //     }
+    //     // 内部函数是在for循环中定义的，但是却是在for循环之后调用的
+    //     return arr;
+    // }
+    // var myArr = test();
+    // console.log(myArr);
+    // // 闭包中产生闭包；所以最后函数执行的时候，函数访问的i是test函数作用域中i的变量，而那时候函数i的值已经是10了；所以下面在执行数组中的函数的时候查询的i的值全是10
+    // for(var j = 0;j<10;j++){
+    //     myArr[j]();
+    // }
+
+    // function test(){
+    //     var n =10;
+    //     var a = function(){
+    //         console.log(n);
+    //     }
+    //     var b = function(){
+    //         console.log(n);
+    //     }
+    //     return [a,b];
+    // }
+    // var arr = test();
+    // arr[0]();
+    // arr[1]();
+
+    // 解决方法1.立即执行函数
+    // function test() {
+    //     for (var i = 0; i < 10; i++) {
+    //         (function () {
+    //             document.write((i + 1) + '');
+    //         })();
+    //     }
+    // }
+    // test();
+
+    // 解决方法2.借助传参来改变值
+    // function test() {
+    //     var arr = [];
+    //     for (var i = 0; i < 10; i++) {
+    //         arr[i] = function (num) {
+    //             document.write((num + 1) + '');
+    //         };
+    //     }
+    //     return arr;
+    // }
+    // var myArr = test();
+    // for(var j =0;j<10;j++){
+    //     myArr[j](j);
+    // }
+
+    // 解决方法3.立即执行函数的另一种方式，传参 这个时候i赋值给c，但是因为是立即执行 所以每个值都不一样
+    // 这种方法最常用
+    // function test() {
+    //     var arr = [];
+    //     for (var i = 0; i < 10; i++) {
+    //         (function (c) {
+    //             arr[c] = function () {
+    //                 document.write(c + '');
+    //             }
+    //         })(i);
+    //     }
+    //     return arr;
+    // }
+    // var myArr = test();
+    // for (var j = 0; j < 10; j++) {
+    //     myArr[j]();
+    // }
+
+    // var oLi = document.querySelectorAll('li');
+    // for (var i = 0; i < oLi.length; i++) {
+    //     (function (j) {
+    //         oLi[j].onclick = function () {
+    //             console.log(j);
+    //         }
+    //     })(i);
+    // }
+
+    // 闭包 test2把test1死死地拽着，所有test1销毁 但是test1的AO不销毁，只是把线剪断，因为test2也在连着
+    // function test1(){
+    //     function test2(){
+    //         var b =2;
+    //         console.log(a);
+    //     }
+    //     var a =1;
+    //     return test2;
+    // }
+    // var c = 3;
+    // // 当test1函数被执行时(前一刻)，函数test2被定义 test2的作用域链跟test1的作用域链相等，都有AO和GO
+    // // 当test1函数被执行结束时，因为test2被返回到外部，且被全局变量test3接收。这时test1的AO并没有被销毁，只是把线剪断了，test2的作用域链还连着的。
+    // // 相当于test3 =test2;
+    // var test3 =test1();
+    // // 相当于执行test2
+    // // test3执行，test2的作用域链增加自己的AO，当打印a的时候，在自己的AO上没有查找到，则向test1的AO查找。再次执行test3时，实际操作的仍然是原来test1的AO
+    // test3();
+
+    // function test(){
+    //     var num = 0;
+    //     function add(){
+    //         console.log(++num);
+    //     }
+    //     return add;
+    // }
+    // var add = test();
+    // add();
+    // add();
+    // add();
+    // add();
+    // add();
+
+    // function myClass(){
+    //     var students = [];
+    //     var operation = {
+    //         join:function(name){
+    //             students.push(name);
+    //             console.log(students);
+    //         },
+    //         leave:function(name){
+    //             // for(var i = 0; i<students.length;i++){
+    //             //     // 优化for循环性能
+    //             //     var item =students[i];
+    //             //     if(item === name){
+    //             //         students.splice(i,1);
+    //             //     }
+    //             // }
+    //             var idx = students.indexOf(name);
+    //             if(idx !==-1){
+    //                 students.splice(idx,1);
+    //             }
+    //             console.log(students);
+    //         }
+    //     }
+    //     return operation;
+    // }
+    // var obj = myClass();
+    // obj.join('张三');
+    // obj.join('李四');
+    // obj.join('王五');
+    // obj.leave('李四');
+    
+    // 需要用一个全局变量去接test()函数，才能让plus1变成全局作用域
+    // function test(){
+    //     var a = 1;
+    //     function plus1(){
+    //         a++;
+    //         console.log(a);
+    //     }
+    //     return plus1;
+    // }
+    // // 这个时候plus1变成了全局函数
+    // var plus = test();
+    // plus();
+    // plus();
+    // plus();
+
+    // function abc(){
+    //     window.a = 3;
+    // }
+    // abc();
+    // console.log(a);
+    
+    // 执行test()直接把add函数变成全局作用域，不用再用一个全局变量去接了
+    // function test(){
+    //     var a = 1;
+    //     function add(){
+    //         a++;
+    //         console.log(a);
+    //     }
+    //     window.add =add;
+    // }
+    // test();
+    // add();
+    // add();
+    // add();
+
+    // 立即执行函数 add直接变成全局作用域，直接执行add()就可以
+    // (function(){
+    //     var a = 1;
+    //     function add(){
+    //         a++;
+    //         console.log(a);
+    //     }
+    //     window.add = add;
+    // })();
+    // add();
+    // add();
+    // add();
+    function useArguments() {
+    let num = 0;
+    for(let i = 0; i<arguments.length; i++){
+           num += arguments[i]
+    }
+    return num
+}
+console.log(useArguments(1,2,3,4));
+</script>
+
+</html>

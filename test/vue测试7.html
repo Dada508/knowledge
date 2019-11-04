@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- <div id="app-2"> -->
+    <!-- v-bind:属性 可以直接用:表示 -->
+    <!-- <span v-bind:title="message">
+            鼠标悬停几秒钟查看此处动态绑定的提示信息！
+        </span>
+    </div> -->
+    <div id="app-5">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">反转消息</button>
+    </div>
+</body>
+<script>
+    // var app2 = new Vue({
+    //     el: '#app-2',
+    //     data: {
+    //         message: '页面加载于 ' + new Date().toLocaleString()
+    //     }
+    // });
+    var app5 = new Vue({
+        el: '#app-5',
+        data: {
+            message: 'Hello Vue.js!'
+        },
+        methods: {
+            reverseMessage: function () {
+                this.message = this.message.split('').reverse().join('')
+            }
+        }
+    })
+</script>
+
+</html>

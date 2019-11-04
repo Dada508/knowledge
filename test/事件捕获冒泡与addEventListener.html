@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件的捕获与冒泡</title>
+    <style>
+        html,body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        #d1 {
+            width: 200px;
+            height: 200px;
+           border: 1px solid black;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="d1">
+        <a href="www.baidu.com" id="d2">a</a>
+    </div>
+</body>
+<script>
+    const d1 = document.getElementById("d1"),
+          d2 = document.getElementById("d2");
+    d1.onclick = function () {
+        console.log('d1');
+    }
+    d2.onclick = function (ev) {
+        console.log('d2');
+    /*
+        ev.stopPropagation(); // w3c 的方法;
+
+        //IE 的方法;
+        const oEvent = ev||event; 
+        oEvent.cancelBubble = true;
+    */
+    
+    }
+    // javascript 
+    // return false 只能阻止事件的默认行为 功能类似 e.preventDefault();
+
+    d2.onclick = function () {
+            console.log('d2');
+            return false;
+        }
+    
+</script>
+</html>

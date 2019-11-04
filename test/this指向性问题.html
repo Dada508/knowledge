@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this指向性问题</title>
+</head>
+<body>
+    <button id="btn">按钮</button>
+</body>
+
+<script>
+// JavaScript 的 this 用法;
+
+// 1. 纯粹的函数调用 this 指向 window;
+/*
+    var ChangLiang ="我是 window 里的常量";
+    function myFunction() {
+
+        console.log(this.ChangLiang);
+    }
+    myFunction(); // =>我是 window 里的常量;
+    //  使用 var 声明的全局变量都是 window 的属性。
+*/
+// 2.作为对象的方法来调用; this 指向 该方法所属的对象;
+/*
+    let myObject = {};
+        myObject.name = "申屠肆";
+        myObject.sleep = function () {
+            console.log(`${this.name}正在睡觉`);
+        }
+    myObject.sleep(); // => 申屠肆正在睡觉;
+*/
+// 3.作为构造函数调用; this 指向构造函数的实例化对象;
+/*
+    function Animal(kindOf,sex) {
+        this.kindOf = kindOf;
+        this.sex = sex;
+        this.behaviour = function () {
+            console.log(`种类为:${this.kindOf}的动物的behaviour`);
+        }
+    }
+    let cat = new Animal("猫","雄性");
+    cat.behaviour();  // => 种类为:猫的动物的behaviour
+*/
+// 4.apply调用; apply势函数的一个方法,第一个参数表示改变后的调用这个函数的对象
+// 因此,这时 this 指向的就是这第一个参数。apply 不传参数 默认为 window;
+/*
+    var x = "指向window"
+    function testFunction () {
+        console.log(this.x);
+    }
+    let testObject = {};
+        testObject.x = "指向testObject";
+        testObject.m = testFunction;
+    testObject.m(); // => 指向 testObject;
+    testObject.m.apply(); // => 指向 window;
+*/  
+// 关于 JavaScript 事件绑定的 this 指向问题;
+/*
+    1. 行内绑定 // =>行内绑定的方法的 this 指向 window
+    <button onclick = "demo()"></button>
+    function demo () { console.log(this)}
+
+    2. 动态绑定 // => 动态绑定的方法的 this 指向当前正在操作的 DOM 对象。
+    $("#btn").on("click", function () {
+        console.log(this);
+    });
+*/
+</script>
+</html>

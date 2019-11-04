@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        {{name}}
+        <p v-html ="name"></p>
+        <span>{{age}}</span>
+        <p>{{10+20}}</p>
+        <p>{{10>20?'大于':'小于'}}</p>
+        <p v-if ="isShow">我是动态创建和删除</p>
+        <p v-show ='isShow'>我是动态隐藏和显示</p>
+        <!-- <button v-on:click="handleClick">click</button> -->
+        <button @click="handleClick">click</button>
+        <!-- <p v-bind:class="isShow?'aaa':'bbb'"></p> -->
+        <p :class="isShow?'aaa':'bbb'"></p>
+
+    </div>
+</body>
+<script>
+    var vm =new Vue({
+        el:"#box",
+        data:{
+            name:"<b>xiaoming</b>",
+            age:18,
+            isShow:false
+        },
+        methods:{
+            handleClick:function(){
+                console.log(11);
+                this.name ="aaa";
+                this.isShow =true
+            }
+        }
+    });
+</script>
+</html>

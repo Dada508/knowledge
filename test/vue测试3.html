@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue3</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <p>单价:<input type="text" v-model="price"/></p>
+        {{price}}
+        <p>数量:<input type="text" v-model="number"/></p>
+        {{number}}
+        <p>总额<span>{{sum}}</span></p>
+        <p>计算属性的总额<span>{{computedsum}}</span></p>
+    </div>
+</body>
+<script>
+    var vm =new Vue({
+        el:"#box",
+        data:{
+            name:"xiaoming",
+            price:100,
+            number:0,
+            sum:0
+        },
+        watch:{
+            price:function(newvalue){
+                this.sum =newvalue*this.number
+            },
+            number:function(newvalue){
+                this.sum =newvalue*this.price
+            }
+        },
+        computed:{
+            computedsum:function(){
+                return this.number*this.price
+            }
+        }
+    })
+</script>
+</html>

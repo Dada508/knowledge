@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue6</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <!-- <ul>
+            <li v-for="(data,index) in datalist">
+                {{data}}----{{index}}
+            </li>
+            <li v-for="(data,index) of datalist" :key ="index">
+                {{data}}----{{index}}
+            </li>
+        </ul> -->
+        <input type="text" v-model ="mytext"/>
+        <ul>
+            <li v-for ="data in computeddatalist">
+                {{data}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#box",
+        data: {
+            datalist: ["aaa", "bbb", 'ccc', "ddd"],
+            mytext:""
+        },
+        computed:{
+            computeddatalist:function(){
+                return this.datalist.filter(item=>item.indexOf(this.mytext)>-1)
+            }
+        }
+    })
+</script>
+
+</html>

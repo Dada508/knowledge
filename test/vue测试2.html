@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue2</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        {{name.substring(0,1).toUpperCase()+name.substring(1)}}
+        <p>我是计算属性{{changeword}}</p>
+        <p>我是计算属性{{changeword}}</p>
+        <p>我是计算属性{{changeword}}</p>
+
+        <p>我是普通方法{{changewordMethod()}}</p>
+        <p>我是普通方法{{changewordMethod()}}</p>
+        <p>我是普通方法{{changewordMethod()}}</p>
+
+    </div>
+</body>
+<script>
+    var vm =new Vue({
+        el:'#box',
+        data:{
+            name:"xiaoming"
+        },
+        computed:{
+            changeword:function(){
+                console.log("计算属性");
+                return this.name.substring(0,1).toUpperCase()+this.name.substring(1)
+            }
+        },
+        methods:{
+            changewordMethod:function(){
+                console.log("普通方法");
+                return this.name.substring(0,1).toUpperCase()+this.name.substring(1)
+            }
+        },
+    })
+</script>
+</html>

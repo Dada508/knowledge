@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试</title>
+</head>
+
+<body>
+    <div id="citing"></div>
+</body>
+<script>
+    // var User = {
+    //     count: 1,
+    //     getCount: function () {
+    //         return this.count;
+    //     }
+    // };
+    // console.log(User.getCount());
+    // // func中的this指向的是window,所以会返回undefined,如果是没有加this是报错
+    // var func = User.getCount;
+    // console.log(func());
+
+    // ----------------------------------分割线---------------------------------
+
+    // // 异步、作用域、闭包
+    // // settimeout是异步执行，0ms后往任务队列里面添加一个任务，只有主线上的全部执行完，才会执行任务队列里的任务，当主线执行完成后，i是4，所以此时再去执行任务队列里的任务时，i全部是4了。对于打印3次是：每一次for循环的时候，settimeout都执行一次，但是里面的函数没有被执行，而是被放到了任务队列里面，等待执行，for循环了3次，就放了3次，当主线程执行完成后，才进入任务队列里面执行
+    // for (var i = 1; i <= 3; i++) {
+    //     // setTimeout是一次执行函数 仅仅执行一次；for(var i = 1; i <= 3; i++),i的每次取值都是执行setTimeout这个函数，并没有执行setTimeout里面的function（即闭包函数）,setTimeout里面的function是有setTimeout的定时触动的，也就是0ms后执行，也就是说i从1~3时，一共执行了3次的setTimeout()函数，此时的i的值是4，由于for语句的执行速度远小于1秒，所以,1秒后，由setTimeout()函数定时触动的闭包函数function()开始执行，alert(i);i的值已经是4了，所以相继打印3次i.
+    //     setTimeout(function () {
+    //         // 再打印这个i 值是4 4 4
+    //         console.log(i);
+    //     }, 0);
+    //     // 先打印这个i 值是1 2 3 
+    //     console.log(i);
+    // };
+
+    // ----------------------------------分割线---------------------------------
+
+    // var a = null;
+    // // 输出的是object,null被认为是对象的占位符，但仍然算做原始数据类型
+    // alert(typeof a);
+
+    // ----------------------------------分割线---------------------------------
+
+    // function outputNumbers(count){
+    //     for(var i = 0; i< count; i++){
+    //         alert(i);
+    //     }
+    //     // 变量i定义在outputNumbers()的活动对象中，可以在函数内部随处访问它
+    //     alert(i);
+    // }
+    // outputNumbers(3);
+
+    // ----------------------------------分割线---------------------------------
+
+    // 在一个有很多开发人员共同参与的大型应用程序中，过多的全局变量和函数很容易导致命名冲突，而通过创建私有作用域，每个开发人员既可以使用自己的变量，又不必担心搞乱全局作用域
+    // 这种做法可以减少闭包占用的内存问题，因为没有指向匿名函数的引用。只要函数执行完毕，就可以立即销毁其作用链了
+    // 立即执行函数 当时间到8月31日时会向用户显示你好啊的消息
+    // (function(){
+    //     var now =new Date();
+    //     if(now.getMonth() == 7 && now.getDate() == 31){
+    //         alert("你好啊");
+    //     }
+    // })();
+
+    // ----------------------------------分割线---------------------------------
+
+    // var handsome = 'handsome';
+    // function handsomeToUgly() {
+    //     alert(handsome);
+    //     var handsome = 'ugly';
+    //     alert(handsome);
+    // }
+    // handsomeToUgly();
+
+    // ----------------------------------分割线---------------------------------
+
+    // function Person(){}
+    // Person.prototype.name ="dada";
+    // var p =new Person();
+    // console.log(p);
+
+    // ----------------------------------分割线---------------------------------
+
+    // // 原型链继承
+    // Professor.prototype = {
+    //     name:'Mr.Zhang',
+    //     tSkill:'JAVA'
+    // }
+    // function Professor(){}
+    // var professor =new Professor();
+    // Teacher.prototype =professor;
+    // function Teacher(){
+    //     this.name ='Mr.Wang';
+    //     this.mSkill ='JS/JQ';
+    // }
+    // var teacher =new Teacher();
+    // Student.prototype =teacher;
+    // function Student(){
+    //     this.name ='Mr.Li';
+    //     this.pSkill ='HTML/CSS';
+    // }
+    // var student =new Student();
+    // console.log(student);
+
+    // ----------------------------------分割线---------------------------------
+
+    // 通过apply来改变this指向，来借用别人的方法 
+    // 借助call/apply实现继承 不算真正的继承
+    // function Teacher(name,mSkill){
+    //     this.name =name;
+    //     this.mSkill =mSkill;
+    // }
+    // function Student(name,mSkill,age,major){
+    //     Teacher.apply(this,[name,mSkill]);
+    //     this.age =age;
+    //     this.major =major;
+    // }
+    // var student =new Student('Mr.Zhang','JS/JQ',18,'Computer');
+    // console.log(student);
+
+    // ----------------------------------分割线---------------------------------
+
+    // 公共原型继承
+    // Student的原型继承了Teacher的原型,但是在Student原型上新添属性的时候 Teacher的原型也跟着发生变化 新添属性  效果不太好
+    // function Teacher(){
+    //     this.name ='Mr.Li';
+    //     this.tSkill ='JAVA';
+    // }
+    // Teacher.prototype ={
+    //     pSkill:'JS/JQ'
+    // }
+    // var t =new Teacher();
+    // console.log(t);
+    // function Student(){
+    //     this.name ='Mr.Wang';
+    // }
+    // Student.prototype =Teacher.prototype;
+    // Student.prototype.age =18;
+    // var s =new Student();
+    // console.log(s);
+
+    // ----------------------------------分割线---------------------------------
+
+    // 原型继承之圣杯模式
+    // 在Student和Teacher之间 设了一个中间构造函数Buffer，让中间构造函数Buffer的原型等于Teacher的原型，在让Student的原型等于Buffer，这个时候Student的原型等于Buffer为空，Student的原型的原型等于Buffer的原型等于Teacher的原型，再修改Student的原型就不会改变Teacher的原型了
+    // function Teacher(){
+    //     this.name ='Mr.Li';
+    //     this.tSkill ='JAVA';
+    // }
+    // Teacher.prototype ={
+    //     pSkill:'JS/JQ'
+    // }
+    // var t =new Teacher();
+    // console.log(t);
+    // function Student(){
+    //     this.name ='Mr.Wang';
+    // }
+    // function Buffer(){};
+    // Buffer.prototype =Teacher.prototype;
+    // var buffer =new Buffer();
+    // Student.prototype =buffer;
+    // Student.prototype.age =18;
+    // var s =new Student();
+    // console.log(s);
+
+    // 封装一下的圣杯模式 
+    // Teacher.prototype.name ='Mr.Zhang';
+    // function Teacher(){};
+    // function Student(){};
+    // function Buffer(){};
+    // inherit(Student,Teacher);
+    // var s =new Student();
+    // var t =new Teacher();
+    // console.log(s);
+    // console.log(t);
+    // // inherit继承 Target目标 继承方 Origin 被继承方
+    // function inherit(Target,Origin){
+    //     function Buffer(){}
+    //     Buffer.prototype =Origin.prototype;
+    //     Target.prototype =new Buffer();
+    //     // Student的构造器指向它本身 constructor构造器
+    //     Target.prototype.constructor =Target;
+    //     // 继承超类 继承源
+    //     Target.prototype.super_class =Origin;
+    // }
+
+    // 用闭包封装圣杯模式
+    // function test() {
+    //     var Buffer = function () {}
+    //     function inherit(Target, Origin) {
+    //         Buffer.prototype = Origin.prototype;
+    //         Target.prototype = new Buffer();
+    //         Target.prototype.constructor = Target;
+    //         Target.prototype.super_class = Origin;
+    //     }
+    //     return inherit;
+    // }
+    // var inherit =test();
+    // function Teacher(){};
+    // function Student(){};
+    // function Buffer(){};
+    // inherit(Student,Teacher);
+    // var s =new Student();
+    // var t =new Teacher();
+    // console.log(s);
+    // console.log(t);
+
+    // 立即执行函数圣杯模式继承  企业级写法：模块化开发 防止全局污染
+    // var inherit =(function() {
+    //     var Buffer = function () {}
+    //     return function(Target, Origin) {
+    //         Buffer.prototype = Origin.prototype;
+    //         Target.prototype = new Buffer();
+    //         Target.prototype.constructor = Target;
+    //         Target.prototype.super_class = Origin;
+    //     }
+    // })();
+    // Teacher.prototype.name ='Mr.Zhang';
+    // function Teacher(){};
+    // function Student(){};
+    // function Buffer(){};
+    // inherit(Student,Teacher);
+    // Student.prototype.age =18;
+    // var s =new Student();
+    // var t =new Teacher();
+    // console.log(s);
+    // console.log(t);
+
+    // 例
+    // var inherit =(function() {
+    //     var Buffer = function () {}
+    //     return function(Target, Origin) {
+    //         Buffer.prototype = Origin.prototype;
+    //         Target.prototype = new Buffer();
+    //         Target.prototype.constructor = Target;
+    //         Target.prototype.super_class = Origin;
+    //     }
+    // })();
+    // var initProgrammer =(function(){
+    //     var Programmer =function(){}
+    //     Programmer.prototype ={
+    //         name:'程序员',
+    //         tool:'计算机',
+    //         work:'编写应用程序',
+    //         duration:'10个小时',
+    //         say:function(){
+    //             console.log(
+    //                 '我是一名'+this.myName+this.name+',我的工作是用'+this.tool+this.work +',我每天工作'+this.duration+',我的工作需要用到'+this.lang.toString()+'。'
+    //             );
+    //         }
+    //     }
+    //     function FrontEnd(){};
+    //     function BackEnd(){};
+    //     inherit(FrontEnd,Programmer);
+    //     inherit(BackEnd,Programmer);
+    //     FrontEnd.prototype.lang =['HTML','CSS','JavaScript'];
+    //     FrontEnd.prototype.myName ='前端';
+    //     BackEnd.prototype.lang =['Node','Java','SQL'];
+    //     BackEnd.prototype.myName ='后端';
+    //     return{
+    //         FrontEnd:FrontEnd,
+    //         BackEnd:BackEnd
+    //     }
+    // })();
+    // var frontEnd =new initProgrammer.FrontEnd();
+    // var backEnd =new initProgrammer.BackEnd();
+    // frontEnd.say();
+    // backEnd.say();
+
+    // ----------------------------------分割线---------------------------------
+
+    // 闭包
+
+    // function test(){
+    //     var num =0;// 私有变量
+    //     function add(){
+    //         num++;
+    //         console.log(num);
+    //     }
+    //     return add;
+    // }
+    // var add =test();
+    // add();
+    // add();
+    // add();
+
+    // function test(){
+    //     var num =0;
+    //     var compute ={
+    //         add:function(){
+    //             num++;
+    //             console.log(num);
+    //         },
+    //         minus:function(){
+    //             num--;
+    //             console.log(num);
+    //         }
+    //     }
+    //     return compute;
+    // }
+    // var compute =test();
+    // compute.add();
+    // compute.add();
+    // compute.add();
+    // compute.add();
+    // compute.minus();
+
+    // function Compute(){
+    //     var num =0;
+    //     this.add =function(){
+    //         num++;
+    //         console.log(num);
+    //     }
+    //     this.minus =function(){
+    //         num--;
+    //         console.log(num);
+    //     }
+    //     // return this; 隐式的return了一个this
+    // }
+    // var compute =new Compute();
+    // compute.add();
+    // compute.add();
+    // compute.add();
+    // compute.add();
+    // compute.minus();
+
+    // window.onload =function(){
+    //     init();
+    // }
+    // function init(){
+    //     initCompute();
+    // };
+    // var initCompute =(function(){
+    //     var a =1,
+    //         b =2;
+    //     function add(){
+    //         console.log(a +b);
+    //     }
+    //     function minus(){
+    //         console.log(a -b);
+    //     }
+    //     function mul(){
+    //         console.log(a *b);
+    //     }
+    //     function div(){
+    //         console.log(a /b);
+    //     }
+    //     return function(){
+    //         add();
+    //         minus();
+    //         mul();
+    //         div();
+    //     }
+    // })();
+
+    // 斐波拉契数列 模块化开发
+    // window.onload =function(){
+    //     init();
+    // }
+    // function init(){
+    //     console.log(initFb(10));
+    //     console.log(initDiv(100));
+    // }
+    // var initFb =(function(){
+    //     function fb(n){
+    //         if(n <=0){
+    //             return 0;
+    //         }
+    //         if(n <=2){
+    //             return 1;
+    //         }
+    //         return fb(n -1) +fb(n -2);
+    //     }
+    //     return fb;
+    // })();
+    // var initDiv =(function(){
+    //     function div(n){
+    //         var arr =[];
+    //         for(var i =0;i<=n;i++){
+    //             if(i %3 ===0||i %5 ===0||i %7===0){
+    //                 arr.push(i);
+    //             }
+    //         }
+    //         return arr;
+    //     }
+    //     return div;
+    // })();
+
+    // ----------------------------------分割线---------------------------------
+
+    // 三种判断是不是数组
+    // var a =[];
+    // // 1.constructor 构造器
+    // console.log(a.constructor);
+    // // 2.instanceof 判断对象类型
+    // console.log(a instanceof Array);
+    // // 3.用对象原型toString方法  一般都是用这个方法来进行判断的
+    // var str =Object.prototype.toString;
+    // var trueTip ='[object Array]';
+    // if(str.call(a) ===trueTip){
+    //     console.log('是数组');
+    // }
+    // else{
+    //     console.log('不是数组');
+    // }
+    // Object.prototype ={
+    //     toString:function(){
+    //         this.toString();
+    //     }
+    // }
+    // var arr =new Array(1,2,3);
+    // console.log(arr.toString());
+    // console.log(Object.prototype.toString.call(arr));
+    
+    // ----------------------------------分割线---------------------------------
+
+    // this指向
+    // 全局this -> window
+    // 预编译函数this -> window
+    // apply/call改变this指向
+    // 构造函数的this指向实例化对象
+
+    // ----------------------------------分割线---------------------------------
+
+    // 封装typeof
+    // number string boolean object function undefined
+    // function myTypeof(val){
+    //     var type = typeof(val);
+    //     var toStr =Object.prototype.toString;
+    //     var res ={
+    //         '[object Array]':'array',
+    //         '[object Object]':'object',
+    //         '[object Number]':'object number',
+    //         '[object String]':'object string',
+    //         '[object Boolean]':'object boolean',
+    //     }
+    //     if(val === null){
+    //         return 'null';
+    //     }else if(type === 'object'){
+    //         var ret =toStr.call(val);
+    //         return res[ret];
+    //     }else{
+    //         return type;
+    //     }
+    // }
+    // console.log(myTypeof(new Boolean()));
+    
+    // ----------------------------------分割线---------------------------------
+
+    // a = 1;
+    // function test(){
+    //     console.log(a);// undefined
+    //     a = 2;
+    //     console.log(a);// 2
+    //     var a = 3;
+    //     console.log(a);// 3
+    // }
+    // test();
+    // var a;
+    // GO = {
+    //     a:undefined,
+    //     test:function test(){}
+    // }
+    // AO = {
+    //     a:undefined,
+    //       2,
+    //       3
+    // }
+
+    // function test(){
+    //     console.log(b);// undefined
+    //     if(a){
+    //         var b = 2;
+    //     }
+    //     c = 3;
+    //     console.log(c);// 3
+    // }
+    // var a;
+    // test();
+    // a = 1;
+    // console.log(a);// 1
+    // GO = {
+    //     a:undefined,
+    //       1,
+    //     test:function test(){},
+    //     c:3
+    // }
+    // AO = {
+    //     b:undefined,
+    // }
+
+    // function test(){
+    //     return a;
+    //     a = 1;
+    //     function a(){}
+    //     var a = 2;
+    // }
+    // console.log(test());// function a(){}
+    // AO = {
+    //     a:undefined,
+    //       function a(){},
+    // }
+
+    // function test(){
+    //     a = 1;
+    //     function a(){}
+    //     var a = 2;
+    //     return a;
+    // }
+    // console.log(test());// 2
+    // AO = {
+    //     a:undefined,
+    //       function a(){},
+    //       1,
+    //       2
+    // }
+
+    // a = 1;
+    // function test(e){
+    //     function e(){}
+    //     arguments[0] = 2;
+    //     console.log(e);// 2
+    //     if(a){
+    //         var b = 3;
+    //     }
+    //     var c;
+    //     a = 4;
+    //     var a;
+    //     console.log(b);// undefined
+    //     f = 5;
+    //     console.log(c);// undefined
+    //     console.log(a);// 4
+    // }
+    // var a;
+    // test(1);
+    // console.log(a);// 1
+    // console.log(f);// 5
+    // GO = {
+    //     a:undefined
+    //       1,
+    //     test:function test(e){},
+    //     f:5
+    // }
+    // AO = {
+    //     e:undefined,
+    //       1,
+    //       function e() {},
+    //       2
+    //     b:undefined,
+    //     c:undefined,
+    //     a:undefined
+    //       4,
+    // }
+    
+    // 当a函数被定义时，系统生成[[scope]]属性，[[scope]]保存该函数的作用域链，该作用域链的第0位存储当前环境下的全局执行上下文GO，GO里存储全局下的所有对象，其中包含函数a和全局变量c
+    // function a(){
+    //     // 当b函数被定义时，是在a函数环境下，所以b函数这时的作用域链就是a函数被执行期的作用域链。a的(AO、GO)
+    //     function b(){
+    //         var b = 2;
+    //     }
+    //     var a = 1;
+    //     // 当b函数被执行时(前一刻),生成函数b的[[scope]]，存储函数b的作用域链，顶端第0位存储b函数的AO，a函数的AO和全局的GO依次向下排列
+    //     b();
+    //     // 当b函数被执行结束后，b函数的AO被销毁，回归被定义时的状态
+    // }
+    // var c = 3;
+    // 当a函数被执行时(前一刻)，作用域链的顶端(第0位)存储a函数生成的函数执行期上下文AO，同时第1位存储GO。查找变量是到a函数存储的作用域链中从顶端开始依次向下查找。
+    // a();
+    // 当a函数被执行结束时，a函数的AO被销毁的同时，b函数的[[scope]]也将不存在，a函数回归到被定义的状态
+    // GO = {
+    //     a:function a(){},
+    //     c:3
+    // }
+    // a:AO = {
+    //     a:undefined,
+    //       1,
+    //     b:function b(){},
+    // }
+    // b:AO = {
+    //     b:undefined,
+    //       2
+    // }
+
+    // function a(){
+    //     function b(){
+    //         function c(){
+
+    //         }
+    //         c();
+    //     }
+    //     b();
+    // }
+    // a();
+    // a定义:a.[[scope]] -> 0:GO
+    // a执行:a.[[scope]] -> 0:a AO  1:GO
+    // b定义:b.[[scope]] -> 0:a AO  1:GO
+    // b执行:b.[[scope]] -> 0:b AO  1:a AO  2:GO
+    // c定义:c.[[scope]] -> 0:b AO  1:a AO  2:GO
+    // c执行:c.[[scope]] -> 0:c AO  1:b AO  2:a AO 3:GO
+    // c结束:c.[[scope]] -> 0:b AO  1:a AO  2:GO
+    // b结束:b.[[scope]] -> 0:a AO  1:GO  c.[[scope]] X
+    // a结束:a.[[scope]] -> 0:GO  b.[[scope]] X
+
+    // ----------------------------------分割线---------------------------------
+
+    // 包装类
+    // 原始值并没有自己的方法和属性
+    // var a = 1;// 原始值
+    // var c = 3;
+    // console.log(a + c);
+    // var b = new Number(a);
+    // b.len = 1;
+    // b.add = function(){
+    //     console.log(1);
+    // }
+    // var d = b + 1;
+    // console.log(d);
+
+    // ----------------------------------分割线---------------------------------
+
+    // 构造函数作业题
+    // function Car(opt){
+    //     this.brand = opt.brand;
+    //     this.color = opt.color;
+    //     this.displacement = opt.displacement;
+    // }
+    // function Person(opt){
+    //     this.name = opt.name;
+    //     this.age = opt.age;
+    //     this.income = opt.income;
+    //     this.selectCar = function(){
+    //         var myCar = new Car(opt.carOpt);
+    //         console.log(this.name + '挑选了一辆排量为' + myCar.displacement + '的' + myCar.color + myCar.brand);
+    //     }
+    // }
+    // var jone = new Person({
+    //     name:'约翰',
+    //     age:29,
+    //     income:'20k',
+    //     carOpt:{
+    //         brand:'马自达',
+    //         color:'红色',
+    //         displacement:'2.0'
+    //     }
+    // })
+    // jone.selectCar();
+
+    // ----------------------------------分割线---------------------------------
+
+    // 模拟对象的链式调用
+    // var sched = {
+    //     wakeup:function(){
+    //         console.log('Running');
+    //         return this;
+    //     },
+    //     morning:function(){
+    //         console.log('Going shopping');
+    //         return this;
+    //     },
+    //     noon:function(){
+    //         console.log('Having a rest');
+    //         return this;
+    //     },
+    //     afternoon:function(){
+    //         console.log('Studying');
+    //         return this;
+    //     },
+    //     evening:function(){
+    //         console.log('Walking');
+    //         return this;
+    //     },
+    //     night:function(){
+    //         console.log('Sleeping');
+    //         return this;
+    //     }
+    // }
+    // sched.wakeup().morning().noon().afternoon().evening().night()
+
+    // ----------------------------------分割线---------------------------------
+
+    // 对象属性拼接
+    // var myLang = {
+    //     No1:'HTML',
+    //     No2:'CSS',
+    //     No3:'JavaScript',
+    //     myStudyingLang:function(num){
+    //         // 字符串拼接属性名
+    //         console.log(this['No' + num]);
+    //     }
+    // }
+    // myLang.myStudyingLang(1);
+    // obj = {
+    //     name:'123'
+    // }
+    // console.log(obj['name']);
+
+    // 对象枚举
+    // var car = {
+    //     brand:'Benz',
+    //     color:'red',
+    //     displacement:'3.0',
+    //     lang:'5',
+    //     width:'2.5'
+    // }
+    // for(var key in car){
+    //     // 不能用car.key 因为这时key是字符串 car.key找不到，结果是undefined
+    //     console.log(key + ':' + car[key]);
+    // }
+
+    // ----------------------------------分割线---------------------------------
+
+    // hasOwnProperty判断是否是对象自身的属性
+    // var obj = {
+    //     name:'大大',
+    //     age:22
+    // }
+    // function Car(){
+    //     this.brand = 'Banz';
+    //     this.color = 'red';
+    //     this.displacement = '3.0';
+    // }
+    // Car.prototype = {
+    //     lang:5,
+    //     width:2.5
+    // }
+    // Object.prototype.name = 'Object';
+    // var car = new Car();
+    // // console.log(car);
+    // for(var key in car){
+    //     // console.log(key + ':' + car[key]);
+    //     // hasOwnProperty找对象自身的属性，排除原型上自定义的属性
+    //     if(car.hasOwnProperty(key)){
+    //         console.log(car[key]);
+    //     }
+    // }
+
+    // ----------------------------------分割线---------------------------------
+
+    // in
+    // var car = {
+    //     brand:'Benz',
+    //     color:'red'
+    // }
+    // // 这里的属性名要加""/''
+    // console.log('brand' in car);
+    // function Car(){
+    //     this.brand = 'Benz',
+    //     this.color = 'red'
+    // }
+    // Car.prototype = {
+    //     displacement:'3.0'
+    // }
+    // var car = new Car();
+    // console.log('displacement' in car);
+
+    // ----------------------------------分割线---------------------------------
+
+    // instanceof 判断对象类型
+    // 判断A对象的原型里到底有没有B的原型
+    // function Car(){}
+    // var car = new Car();
+    // function Person(){};
+    // var p = new Person();
+    // console.log(car instanceof Person);// false
+    // console.log(car instanceof Car);// true
+    // console.log(car instanceof Object);// true
+    // console.log([] instanceof Array);// true
+    // console.log([] instanceof Object);// true
+    // console.log({} instanceof Object);// true
+
+    // ----------------------------------分割线---------------------------------
+
+    // 对象拷贝
+    // 对象浅拷贝
+    // Object.prototype.num = 1;
+    // var person1 = {
+    //     name:'张三',
+    //     age:18,
+    //     sex:'male',
+    //     height:184,
+    //     weight:140,
+    //     son:{
+    //         first:'Jenney',
+    //         secondL:'Lucy',
+    //         Third:'Jone'
+    //     }
+    // }
+    // var person2 = {};
+    // for(var key in person1){
+    //     person2[key] = person1[key];
+    // }
+    // var person2 = clone(person1);
+    // person2.name = '李四';
+    // person2.son.forth = 'Ben';
+    // console.log(person1,person2);
+    // function clone(origin,target){
+    //     var tar = target || {};
+    //     for(var key in origin){
+    //         if(origin.hasOwnProperty(key)){
+    //             tar[key] = origin[key];
+    //         }
+    //     }
+    //     return tar;
+    // }
+    // 对象深拷贝
+    // Object.prototype.num = 1;
+    // var person1 = {
+    //     name:'张三',
+    //     age:18,
+    //     sex:'male',
+    //     height:184,
+    //     weight:140,
+    //     children:{
+    //         first:{
+    //             name:'张晓一',
+    //             age:13
+    //         },
+    //         second:{
+    //             name:'张小二',
+    //             age:7
+    //         },
+    //         third:{
+    //             name:'张小三',
+    //             age:3
+    //         },
+    //     },
+    //     car:['Benz','Mazda']
+    // }
+    // console.log(person1);
+
+    // var person2 = deepClone(person1);
+    // person2.name = '李四';
+    // person2.children.forth = {
+    //     name:'张小四',
+    //     age:1
+    // }
+    // person2.car.push = "BYD";
+    // function deepClone(origin,target){
+    //     var tar = target || {},
+    //     toStr = Object.prototype.toString;
+    //     var arrType = '[object Array]';
+    //     for(var key in origin){
+    //         if(origin.hasOwnProperty(key)){
+    //             if(typeof(origin[key]) === 'object' && origin[key] !==null){
+    //                 if(toStr.call(origin[key]) === arrType){
+    //                     tar[key] = [];
+    //                 }else{
+    //                     tar[key] = {};
+    //                 }
+    //                 deepClone(origin[key],tar[key]);
+    //             }else{
+    //                 tar[key] = origin[key];
+    //             }
+    //         }
+    //     }
+    //     return tar;
+    // }
+    // console.log(person1,person2);
+    // JSON深拷贝
+    // var str = JSON.stringify(person1);
+    // var person2 = JSON.parse(str);
+    // person2.name = '李四';
+    // person2.children.forth = {
+    //     name:'张小四',
+    //     age:1
+    // }
+    // person2.car.push("BYD");
+    // console.log(person1,person2);
+
+    // ----------------------------------分割线---------------------------------
+
+    // function Checking(amount){
+    //     this.banlance = amount;
+    //     this.deposit = deposit;
+    //     this.withdraw = withdraw;
+    //     this.toString = toString;
+    // }
+    // function deposit(amount){
+    //     this.banlance += amount;
+    // }
+    // function withdraw(amount){
+    //     if(amount <= this.banlance){
+    //         this.banlance -=amount;
+    //     }else{
+    //         throw "你的余额不足";
+    //     }
+    // }
+    // function toString(){
+    //     return "Balance" + this.banlance;
+    // }
+    // const zhanPeng = new Checking(100);
+    // zhanPeng.deposit(102);
+    // const result = zhanPeng.toString();
+    // console.log(result);
+
+    // ----------------------------------分割线---------------------------------
+
+    // var length = 10;
+    // function fn(){
+    //     console.log(this.length);// 10  2
+    // }
+    // var obj = {
+    //     length:5,
+    //     method:function(fn){
+    //         fn();
+    //         arguments[0]();
+    //     }
+    // };
+    // obj.method(fn,1);
+
+    // ----------------------------------分割线---------------------------------
+
+    // (function(x){
+    //     return (function(y){
+    //         console.log(x);
+    //     })(2);
+    // })(1);
+</script>
+
+</html>

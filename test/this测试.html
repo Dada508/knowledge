@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 函数内部的this
+    // 没有实例化对象的函数(普通函数)的this指向window
+    function test(b){
+        this.d = 3;
+        var a = 1;
+        function c(){}
+    }
+    test(123);
+    // 构造函数
+    function Test(){
+        this.name = "张三";
+    }
+    // 实例化的构造函数this指向实例化对象test
+    var test = new Test();
+    console.log(test.name);
+    // call/apply
+    function Person(name,age){
+        this.name = name;
+        this.age = age;
+        console.log(this);
+    }
+    function Programmer(name,age){
+        Person.apply(this,[name,age]);
+        this.work = "Programming";
+    }
+    var p = new Programmer("张三",18);
+    console.log(p);
+
+    // 全局this -> window
+    // 预编译函数this -> window
+    // apply/call改变this指向
+    // 构造函数的this指向实例化对象
+</script>
+</html>
