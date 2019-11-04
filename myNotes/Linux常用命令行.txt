@@ -1,0 +1,100 @@
+Last failed login: Sat Sep 21 17:09:14 CST 2019 from 62.219.3.57 on ssh:notty
+There were 9 failed login attempts since the last successful login.
+Last login: Sat Sep 21 17:07:56 2019 from 117.158.203.112
+[root@VM_0_17_centos ~]# ls
+mongodb-linux-x86_64-3.0.6  mongodb-linux-x86_64-3.0.6.tgz.1  node-v10.16.3-linux-x64  wget-log
+
+[root@VM_0_17_centos ~]# cd ~
+
+[root@VM_0_17_centos ~]# cd node-v10.16.3-linux-x64
+
+[root@VM_0_17_centos node-v10.16.3-linux-x64]# ls
+bin  CHANGELOG.md  include  lib  LICENSE  README.md  share
+
+[root@VM_0_17_centos node-v10.16.3-linux-x64]# cd bin
+
+[root@VM_0_17_centos bin]# clear
+
+[root@VM_0_17_centos bin]# ls
+node  npm  npx
+
+[root@VM_0_17_centos bin]# vi /etc/profile
+
+[root@VM_0_17_centos bin]# pwd
+/root/node-v10.16.3-linux-x64/bin
+
+[root@VM_0_17_centos bin]# source /etc/profile
+
+[root@VM_0_17_centos bin]# cd ~
+
+[root@VM_0_17_centos ~]# node -v
+v10.16.3
+
+[root@VM_0_17_centos ~]# ls
+mongodb-linux-x86_64-3.0.6  mongodb-linux-x86_64-3.0.6.tgz.1  node-v10.16.3-linux-x64  wget-log
+
+[root@VM_0_17_centos ~]# rm -rf mongodb-linux-x86_64-3.0.6.tgz.1
+
+[root@VM_0_17_centos ~]# ls
+mongodb-linux-x86_64-3.0.6  node-v10.16.3-linux-x64  wget-log
+
+[root@VM_0_17_centos ~]# rm -rf wget-log
+
+[root@VM_0_17_centos ~]# ls
+mongodb-linux-x86_64-3.0.6  node-v10.16.3-linux-x64
+
+[root@VM_0_17_centos ~]# cd mongodb-linux-x86_64-3.0.6
+
+[root@VM_0_17_centos mongodb-linux-x86_64-3.0.6]# ls
+bin  GNU-AGPL-3.0  README  THIRD-PARTY-NOTICES
+
+[root@VM_0_17_centos mongodb-linux-x86_64-3.0.6]# ls
+bin  data  GNU-AGPL-3.0  log  README  THIRD-PARTY-NOTICES
+
+[root@VM_0_17_centos mongodb-linux-x86_64-3.0.6]# pwd
+/root/mongodb-linux-x86_64-3.0.6
+
+[root@VM_0_17_centos mongodb-linux-x86_64-3.0.6]# cd bin
+
+[root@VM_0_17_centos bin]# ls
+mongodump
+[root@VM_0_17_centos bin]# cd ~
+
+[root@VM_0_17_centos ~]#  cd  项目名称
+
+
+
+下载 pm2
+[root@VM_0_17_centos ~]# ps aux
+
+[root@VM_0_17_centos ~]# clear
+
+[root@VM_0_17_centos ~]# npm install pm2 -g
+
+[root@VM_0_17_centos ~]# pm2 -v
+3.5.1
+
+[root@VM_0_17_centos ~]# ls
+Blog  mongodb-linux-x86_64-3.0.6  node-v10.16.3-linux-x64
+
+[root@VM_0_17_centos ~]# cd Blog
+
+[root@VM_0_17_centos Blog]# ls
+logs  node_modules  pm2.json
+
+[root@VM_0_17_centos Blog]# pm2 start pm2.json
+[PM2][WARN] Applications blog not running, starting...
+[PM2][ERROR] script not found : /root/Blog/server.js
+┌──────────┬────┬─────────┬──────┬─────┬────────┬─────────┬────────┬─────┬─────┬──────┬──────────┐
+│ App name │ id │ version │ mode │ pid │ status │ restart │ uptime │ cpu │ mem │ user │ watching │
+└──────────┴────┴─────────┴──────┴─────┴────────┴─────────┴────────┴─────┴─────┴──────┴──────────┘
+ Use `pm2 show <id|name>` to get more details about an app
+[root@VM_0_17_centos Blog]# pm2 ls
+┌──────────┬────┬─────────┬──────┬─────┬────────┬─────────┬────────┬─────┬─────┬──────┬──────────┐
+│ App name │ id │ version │ mode │ pid │ status │ restart │ uptime │ cpu │ mem │ user │ watching │
+└──────────┴────┴─────────┴──────┴─────┴────────┴─────────┴────────┴─────┴─────┴──────┴──────────┘
+ Use `pm2 show <id|name>` to get more details about an app
+
+
+
+

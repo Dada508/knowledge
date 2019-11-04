@@ -1,0 +1,37 @@
+sort  --- NOsort
+
+
+/* 奇数在右，偶数在左*/
+var myArr = [0,1,4,5,2,6,8];
+function left (a,b){
+    var a =a % 2;
+    var b = b % 2;
+    if (a == 0) return -1;
+    if (b == 0) return 1;
+}
+arr.sort(float);
+/*奇数在左,偶数在右*/
+var myArr = [0,1,4,5,2,6,8];
+function right (a,b){
+    var a =a % 2;
+    var b = b % 2;
+    if (a == 0) return 1;
+    if (b == 0) return -1;
+}
+arr.sort(right);
+/* 浮点数和整数分开排列*/
+var arr = [0.1,4,5,6.25,8];
+ function float(a,b) {
+     if (a > Math.floor(a)) return -1;
+     if (b > Math.floor(b)) return 1;
+ }
+arr.sort(float);
+var myArr = [0,1,4,5,2,6,8];
+
+/* 从小到大*/
+var myArr = [0,1,4,5,2,6,8];
+function myfunction (a,b){
+    return a - b;
+}
+myArr.sort(myfunction);
+document.write(myArr);
