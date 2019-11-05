@@ -17,32 +17,32 @@
     <script>
 
         function tableToExcel() {
-            //要导出的json数据
+            // 要导出的json数据
             const jsonData = [
                 {
-                    name: '路人甲',
+                    name: '大大',
                     phone: '123456',
                     email: '123@123456.com'
                 },
                 {
-                    name: '炮灰乙',
+                    name: '小小',
                     phone: '123456',
                     email: '123@123456.com'
                 },
                 {
-                    name: '土匪丙',
+                    name: '上上',
                     phone: '123456',
                     email: '123@123456.com'
                 },
                 {
-                    name: '流氓丁',
+                    name: '下下',
                     phone: '123456',
                     email: '123@123456.com'
                 },
             ]
-            //列标题
+            // 标题
             let str = '<tr><td>姓名</td><td>电话</td><td>邮箱</td></tr>';
-            //循环遍历，每行加入tr标签，每个单元格加td标签
+            // 循环遍历，每行加入tr标签，每个单元格加td标签
             for (let i = 0; i < jsonData.length; i++) {
                 str += '<tr>';
                 for (let item in jsonData[i]) {
@@ -74,27 +74,27 @@
             //要导出的json数据
             const jsonData = [
                 {
-                    name: '路人甲',
+                    name: '大大',
                     phone: '123456789',
                     email: '000@123456.com'
                 },
                 {
-                    name: '炮灰乙',
+                    name: '小小',
                     phone: '123456789',
                     email: '000@123456.com'
                 },
                 {
-                    name: '土匪丙',
+                    name: '上上',
                     phone: '123456789',
                     email: '000@123456.com'
                 },
                 {
-                    name: '流氓丁',
+                    name: '下下',
                     phone: '123456789',
                     email: '000@123456.com'
                 },
             ]
-            //列标题，逗号隔开，每一个逗号就是隔开一个单元格
+            // 逗号隔开，每一个逗号就是隔开一个单元格
             let str = `姓名,电话,邮箱\n`;
             //增加\t为了不让表格显示科学计数法或者其他格式
             for (let i = 0; i < jsonData.length; i++) {
